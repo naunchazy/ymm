@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ymm.dao.ProductMapper">
+    <!--category sql块-->
+    <sql id="Category_Column_List">
+      cat_id,cat_name,cat_desc,status
+    </sql>
+    <!--goods sql块-->
+    <sql id="Goods_Column_List">
+        goods_id,cat_id,goods_sn,goods_name,click_count,brand_id,goods_number,market_price
+        ,shop_price,promote_price,keywords,goods_brief,goods_desc,goods_img,goods_thumb
+        ,add_time,is_new,is_hot,give_integral
+    </sql>
+    <!--查询所有status不为3的category-->
+    <select id="selectAllCategory" parameterType="com.ymm.pojo.dto.Page" resultType="com.ymm.pojo.po.Category">
+        SELECT
+        <include refid="Category_Column_List"/>
+        FROM category
+        WHERE status IN (1,2)
+        limit #{offset},#{limit}
+    </select>
+    <!--查询所有status不为3的category的条数-->
+    <select id="countCate" resultType="int">
+        SELECT count(1)
+        FROM category
+        WHERE status IN (1,2)
+    </select>
+    <!--根据ID查找category-->
+    <select id="selectCateById" parameterType="int" resultType="com.ymm.pojo.po.Category">
+        SELECT
+        <include refid="Category_Column_List"/>
+        FROM category
+        WHERE cat_id = #{id}
+    </select>
+    <!--插入category-->
+    <insert id="insertCate" parameterType="com.ymm.pojo.po.Category" >
+        INSERT INTO category
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="cat_id != null" >
+            cat_id,
+        </if>
+        <if test="cat_name != null" >
+            cat_name,
+        </if>
+        <if test="cat_desc != null" >
+            cat_desc,
+        </if>
+        <if test="status != null" >
+            status,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="cat_id != null" >
+            #{cat_id},
+        </if>
+        <if test="cat_name != null" >
+            #{cat_name},
+        </if>
+        <if test="cat_desc != null" >
+            #{cat_desc},
+        </if>
+        <if test="status != null" >
+            #{status},
+        </if>
+        </trim>
+    </insert>
+    <!--根据id更新category的status-->
+    <update id="updateCateStatusById" parameterType="int">
+        UPDATE
+        category
+        SET status = 3
+        WHERE cat_id = #{id}
+    </update>
+    <!--查询所有goods-->
+    <select id="selectAllGoods" parameterType="com.ymm.pojo.dto.Page" resultMap="resultGoods">
+        SELECT
+        g.goods_id,g.cat_id,g.goods_name,
+        c.cat_id,c.cat_name
+        FROM goods g LEFT JOIN category c ON g.cat_id = c.cat_id
+    </select>
+    <resultMap id="resultGoods" type="com.ymm.pojo.po.Goods">
+        <id column="goods_id" property="goods_id"/>
+        <association property="category" column="cat_id" javaType="com.ymm.pojo.po.Category" resultMap="categoryResult"/>
+    </resultMap>
+    <resultMap id="categoryResult" type="com.ymm.pojo.po.Category">
+        <id column="cat_id" property="cat_id"/>
+        <result column="cat_name" property="cat_name"/>
+        <result column="cat_desc" property="cat_desc"/>
+        <result column="measure_unit" property="measure_unit"/>
+    </resultMap>
+</mapper>

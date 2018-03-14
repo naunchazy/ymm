@@ -1,8 +1,9 @@
 package com.ymm.pojo.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Users {
+public class Users implements Serializable{
     private int user_id;
     private String email;
     private String username;

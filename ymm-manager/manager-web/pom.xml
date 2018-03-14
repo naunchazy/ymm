@@ -43,7 +43,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <port>8080</port>
-                    <path>/ymm</path>
+                    <path>/ymm/manager</path>
                     <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>
