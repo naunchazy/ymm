@@ -64,6 +64,8 @@ public class ManagerProductAction {
     @RequestMapping("/category_edit")
     public String category_edit(int id, Model model){
         Category category = new Category();//todo
+
+        
         try {
             category =  productService.getCateById(id);
             model.addAttribute("category",category);
