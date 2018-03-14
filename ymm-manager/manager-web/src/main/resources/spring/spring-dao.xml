@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--1 读取数据库配置文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!--2 创建数据库连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--基本属性-->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--优化属性-->
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+
+    <!--3 创建mybatis的会话工厂-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--注入mybatis的主配置文件-->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <!--自动扫描dao里面的所有的Mapper.xml-->
+        <property name="mapperLocations" value="classpath*:com/ymm/dao/*Mapper.xml"/>
+    </bean>
+
+    <!--4 配置扫描DAO层接口，配置了这个类之后就不需要再对接口进行实现(不需要再写接口的实现类)-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入会话工厂-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--DAO层所在的包-->
+        <property name="basePackage" value="com.ymm.dao"/>
+    </bean>
+
+    <!--5 扫描DAO层下注解类,可以扫描到base-package的当前包以及子包的所有注解类-->
+    <context:component-scan base-package="com.ymm.dao"/>
+
+</beans>

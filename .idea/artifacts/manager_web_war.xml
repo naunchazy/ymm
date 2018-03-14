@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="manager-web:war">
+    <output-path>$PROJECT_DIR$/ymm-manager/manager-web/target</output-path>
+    <root id="archive" name="manager-web.war">
+      <element id="artifact" artifact-name="manager-web:war exploded" />
+    </root>
+  </artifact>
+</component>
