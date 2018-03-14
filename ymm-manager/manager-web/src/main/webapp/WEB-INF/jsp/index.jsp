@@ -20,7 +20,7 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a href="./index">Admin v1.0</a>
+        <a href="./index" ><img src="${pageContext.request.contextPath}/images/ymm_logo1.png"></a>
     </div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>

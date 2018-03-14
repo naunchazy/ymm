@@ -18,7 +18,7 @@
 <body class="login-bg">
 
 <div class="login">
-    <div class="message">Admin 1.0-管理登录</div>
+    <div class="message"><img src="${pageContext.request.contextPath}/images/ymm_logo.png"></div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" >
