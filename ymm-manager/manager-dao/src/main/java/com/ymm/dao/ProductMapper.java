@@ -19,4 +19,6 @@ public interface ProductMapper {
     int insertCate(Category category);
 
     Category selectCateById(int id);
+
+    int updateCate(Category category);
 }

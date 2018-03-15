@@ -43,4 +43,9 @@ public class ProductServiceImpl implements ProductService{
     public Category getCateById(int id) {
         return productDao.selectCateById(id);
     }
+
+    @Override
+    public int updateCate(Category category) {
+        return productDao.updateCate(category);
+    }
 }

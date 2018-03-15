@@ -17,6 +17,7 @@
         <include refid="Category_Column_List"/>
         FROM category
         WHERE status IN (1,2)
+        ORDER BY cat_id DESC
         limit #{offset},#{limit}
     </select>
     <!--查询所有status不为3的category的条数-->
@@ -70,6 +71,20 @@
         category
         SET status = 3
         WHERE cat_id = #{id}
+    </update>
+    <!--update category-->
+    <update id="updateCate" parameterType="com.ymm.pojo.po.Category" >
+        UPDATE
+        category
+        SET
+        <trim suffixOverrides="," >
+            cat_name = #{category.cat_name},
+            <if test="category.cat_desc !=null">
+                cat_desc = #{category.cat_desc},
+            </if>
+            cat_status = #{category.cat_status},
+        </trim>
+        WHERE cat_id = #{category.cat_id}
     </update>
     <!--查询所有goods-->
     <select id="selectAllGoods" parameterType="com.ymm.pojo.dto.Page" resultMap="resultGoods">

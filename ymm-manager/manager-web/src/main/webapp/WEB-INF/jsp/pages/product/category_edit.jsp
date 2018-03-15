@@ -28,7 +28,17 @@
 
 <body>
 <div class="weadmin-body">
-    <form class="layui-form" id="catEditForm" >
+    <form class="layui-form" id="editToForm" >
+        <div class="layui-form-item">
+            <label for="cat_id" class="layui-form-label">
+                <span class="we-red">*</span>分类编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="cat_id" name="cat_id" required="" lay-verify="required"
+                       autocomplete="off" value="${category.cat_id}" readonly class="layui-input">
+            </div>
+
+        </div>
         <div class="layui-form-item">
             <label for="cat_name" class="layui-form-label">
                 <span class="we-red">*</span>分类名称
@@ -51,8 +61,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">是否上架</label>
             <div class="layui-input-block">
-                <input type="radio" name="status" value="1" title="是">
-                <input type="radio" name="status" value="2" title="否" checked>
+                <input type="radio" name="status" value="1" title="是" checked>
+                <input type="radio" name="status" value="2" title="否" >
             </div>
         </div>
 
@@ -77,12 +87,12 @@
         //监听提交
         form.on('submit(update)', function(data){
             $.ajax({
-                data : $("#catEditForm").serialize(),
+                data : $("#editToForm").serialize(),
                 dataType : "text",
                 type : "post",
-                url : "${pageContext.request.contextPath}/product/category_edit",
+                url : "${pageContext.request.contextPath}/product/category_editTo",
                 success : function(res) {
-                    if(res=="true"){
+                    if(res>0){
                         layer.alert("修改成功", {icon: 6},function () {
                             // 获得frame索引
                             var index = parent.layer.getFrameIndex(window.name);

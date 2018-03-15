@@ -18,4 +18,6 @@ public interface ProductService {
     int cateAdd(Category category);
 
     Category getCateById(int id);
+
+    int updateCate(Category category);
 }
