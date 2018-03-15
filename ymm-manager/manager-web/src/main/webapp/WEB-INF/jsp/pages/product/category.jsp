@@ -74,8 +74,6 @@
                 }, {
                     field: 'cat_desc', title: '描述'
                 }, {
-                    field: 'measure_unit', title: '单位'
-                }, {
                     field: 'status', title: '状态'
                 }, {
                     field: 'operate', title: '操作', toolbar: '#operateTpl', unresize: true

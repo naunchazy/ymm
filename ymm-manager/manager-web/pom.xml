@@ -45,6 +45,10 @@
                     <port>8080</port>
                     <path>/ymm/manager</path>
                     <uriEncoding>UTF-8</uriEncoding>
+                    <url>http://101.132.155.91:8080/manager/text</url>
+                    <username>root</username>
+                    <password>root123</password>
+                    <update>true</update>
                 </configuration>
             </plugin>
         </plugins>
